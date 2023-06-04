@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0072ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-container {
+            margin-top: 20px;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0072ff;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .add-contact-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-contact-button:hover {
+            background-color: darkgreen;
+        }
+
+        .edit-delete-cell {
+            white-space: nowrap;
+        }
+
+        .edit-contact-button {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: yellow;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-contact-button:hover {
+            background-color: darkgoldenrod;
+        }
+
+        .delete-contact-button {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-contact-button:hover {
+            background-color: darkred;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .no-contacts {
+            text-align: center;
+            margin-top: 20px;
+            color: #888888;
+        }
+
+        .logout-button {
+
+            background-color: rgba(250, 250, 27, 0.918);
+            color: rgb(29, 39, 31);
+            padding: 10px 20px;
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <b><a class="logout-button" href="{% url 'logout' %}">Logout</a></b>
+
+    <div class="contact-container">
+
+        <h1>Contact List</h1>
+        <a class="add-contact-button" href="{% url 'add_contact' %}">Add Contacts :)</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td class="edit-delete-cell">
+                        <a class="edit-contact-button" href="{% url 'edit_contact' contact.id %}">Edit</a>
+                        <a class="delete-contact-button" href="{% url 'delete_contact' contact.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="no-contacts">No contacts found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
